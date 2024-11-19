@@ -1,0 +1,19 @@
+package com.example.kanban_task_manager.security;
+
+import jakarta.persistence.*;
+
+@Entity
+public class UserEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    // Getters and Setters
+}

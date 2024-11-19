@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "task")
 public class Task {
 
     @Id
@@ -16,11 +17,12 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private Status status = Status.TO_DO;
+    private Status status;
 
     private String priority;
 
-    private LocalDate createdAt = LocalDate.now();
+    @Column(name = "created_at", nullable = false)
+    private LocalDate createdAt;
 
     private LocalDate dueDate;
 
@@ -28,7 +30,13 @@ public class Task {
         TO_DO, IN_PROGRESS, DONE
     }
 
-    // Getters e Setters
+    // Default constructor
+    public Task() {
+        this.status = Status.TO_DO; // Default status
+        this.createdAt = LocalDate.now(); // Automatically set creation date
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -83,5 +91,18 @@ public class Task {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", priority='" + priority + '\'' +
+                ", createdAt=" + createdAt +
+                ", dueDate=" + dueDate +
+                '}';
     }
 }
